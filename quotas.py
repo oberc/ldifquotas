@@ -12,14 +12,15 @@ class User:
     
 def main(addr, passwd, binddn, base):
   print("Querying LDAP Server %s..." %addr)
-  #cmdline = ['ldapsearch',  '-x', '-LLL', '-b %s' % base, '-H %s' %addr, '-w %s' % passwd]
-  cmdline = ['ldapsearch', '-x', '-LLL']
+  cmdline = "ldapsearch -x -H %s -b '%s' -LLL" % (addr, base)
+  print(cmdline)
   try: 
     rawldif = Popen(cmdline, shell=True, stdout=PIPE, stderr=STDOUT, executable='/bin/bash')
     out = rawldif.stdout.read()
     print(out)
   except TypeError as err:
     print("%s\nCould not query LDAP Server `%s`" % (err, addr))
+    print(cmdline)
   except:
     print("Unhandled exception %s\nCould not query LDAP Server `%s`" % (sys.exc_info(), addr))
 
