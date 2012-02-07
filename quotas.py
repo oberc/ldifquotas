@@ -12,7 +12,8 @@ class User:
     
 def main(addr, passwd, binddn, base):
   print("Querying LDAP Server %s..." %addr)
-  cmdline = ['ldapsearch',  '-x', '-LLL', '-b %s' % base, '-H %s' %addr, '-w %s' % passwd]
+  #cmdline = ['ldapsearch',  '-x', '-LLL', '-b %s' % base, '-H %s' %addr, '-w %s' % passwd]
+  cmdline = ['ldapsearch', '-x', '-LLL']
   try: 
     rawldif = Popen(cmdline, shell=True, stdout=PIPE, stderr=STDOUT, executable='/bin/bash')
     out = rawldif.stdout.read()
